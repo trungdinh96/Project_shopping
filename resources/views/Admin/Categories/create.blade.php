@@ -10,20 +10,27 @@
     <!-- Small boxes (Stat box) -->
     <div class="row">
       <div class="col-md-6">
-<form>
+<form action="{{route('admin.category.store')}}" method="POST">
+  @csrf
+  @if ($errors->any())
+      <div class="alert alert-danger text-center">
+            Vui lòng kiểm tra lại dự liệu
+      </div>
+  @endif
     <div class="form-group">
       <label>Category name</label>
-      <input type="text" class="form-control"   placeholder="Category name">
-      
+      <input type="text" class="form-control"
+      name="name"  
+       placeholder="Category name">
+      @error('name')
+          <span style="color: red">{{$message}}</span>
+      @enderror
     </div>
     <div class="form-group">
         <label >Choose parent category</label>
-        <select class="form-control" >
+        <select class="form-control" name="parent_id" >
           <option value="0">Chọn danh mục</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+         {!!$htmlOption!!}
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
