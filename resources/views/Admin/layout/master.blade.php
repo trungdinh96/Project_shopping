@@ -9,9 +9,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{asset('Admin/plugins/fontawesome-free/css/all.min.css')}}">
+  <link rel="stylesheet" href="{{BASE_URL}}AdminLTE/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('Admin/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{BASE_URL}}AdminLTE/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -30,12 +30,12 @@
           <div class="col-sm-6">
             <h1 class="m-0">@yield('header_content')</h1>
           </div><!-- /.col -->
-          <div class="col-sm-6">
+          {{-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Starter Page</li>
             </ol>
-          </div><!-- /.col -->
+          </div><!-- /.col --> --}}
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -43,6 +43,7 @@
 
     <!-- Main content -->
     <div class="content">
+      
       @yield('content')
     </div>
     <!-- /.content -->
@@ -58,10 +59,10 @@
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
-<script src="{{asset('Admin/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{BASE_URL}}AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="{{asset('Admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{BASE_URL}}AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="{{asset('Admin/dist/js/adminlte.min.js')}}"></script>
+<script src="{{BASE_URL}}AdminLTE/dist/js/adminlte.min.js"></script>
 </body>
 </html>
