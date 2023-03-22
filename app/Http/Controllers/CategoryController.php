@@ -16,23 +16,21 @@ class CategoryController extends Controller
     //     $this->htmlSelect='';  
     //   }
     private $category;
-    function __construct(Category $category){
-            $this->category = $category;
+    function __construct(Category $category)
+    {
+        $this->category = $category;
     }
 
-    public function list(){
+    public function list()
+    {
         $categories = $this->category->latest()->paginate(5);
         return view('Admin.Categories.list', compact('categories'));
-        
-     }
-    public function create(){
-        // $data = DB::table('categories')->get();
-        $data= $this->category->all();
-        // dd($data);
-        $recusive = new Recusive($data);
-       $htmlOption = $recusive->categoryRecusive();
-    //    dd($recusive);
-       return view('Admin.Categories.create', compact('htmlOption'));
+    }
+    public function create()
+    {
+        $htmlOption = $this->getCategory($parentId = '');
+        //    dd($recusive);
+        return view('Admin.Categories.create', compact('htmlOption'));
     }
 
     // function categoryRecusive($id, $text=''){
@@ -45,24 +43,55 @@ class CategoryController extends Controller
     //     }
 
     //     return $this->htmlSelect;
-        
+
     // }
-    public function store(Request $request){
-        $this->validate($request,
-        [
-            'name'=>'required|unique:categories,name'
-        ],
-        [
-            'name.required'=>'Bạn chưa nhập tên danh mục',
-            'name.unique'=>'Tên danh mục đã tồn tại'
-        ]
-    );
+    public function store(Request $request)
+    {
+        $this->validate(
+            $request,
+            [
+                'name' => 'required|unique:categories,name'
+            ],
+            [
+                'name.required' => 'Bạn chưa nhập tên danh mục',
+                'name.unique' => 'Tên danh mục đã tồn tại'
+            ]
+        );
         $this->category->create([
-            'name'=> $request->name,
-            'parent_id'=> $request->parent_id,
-            'slug'=>Str::slug($request->name)
+            'name' => $request->name,
+            'parent_id' => $request->parent_id,
+            'slug' => Str::slug($request->name)
         ]);
 
+        return redirect()->route('admin.category.list');
+    }
+    public function getCategory($parentId)
+    {
+        $data = $this->category->all();
+
+        $recusive = new Recusive($data);
+        $htmlOption = $recusive->categoryRecusive($parentId);
+        return $htmlOption;
+    }
+    public function edit($id, Request $request)
+    {
+        $category = $this->category->find($id);
+        $htmlOption = $this->getCategory($category->parent_id);
+        return view('Admin.Categories.edit', compact('category', 'htmlOption'));
+    }
+    public function update($id, Request $request)
+    {
+        $this->category->find($id)->update([
+            'name' => $request->name,
+            'parent_id' => $request->parent_id,
+            'slug' => Str::slug($request->name)
+        ]);
+
+        return redirect()->route('admin.category.list');
+    }
+    public function delete($id)
+    {
+        $this->category->find($id)->delete();
         return redirect()->route('admin.category.list');
     }
 }

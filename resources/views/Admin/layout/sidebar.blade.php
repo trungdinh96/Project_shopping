@@ -44,6 +44,24 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('admin.menu.list')}}" class="nav-link">
+              <i class="nav-icon fas fa-bars"></i>
+              <p>
+                Menus
+                
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.menu.list')}}" class="nav-link">
+              <i class="nav-icon fab fa-product-hunt"></i>
+              <p>
+                Products
+                
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
