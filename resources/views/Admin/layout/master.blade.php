@@ -13,6 +13,7 @@
   
 
   <link rel="stylesheet" href="{{BASE_URL}}AdminLTE/dist/css/adminlte.min.css">
+  @yield('css')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -51,5 +52,6 @@
 <script src="{{BASE_URL}}AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <script src="{{BASE_URL}}AdminLTE/dist/js/adminlte.min.js"></script>
+@yield('js')
 </body>
 </html>

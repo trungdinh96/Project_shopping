@@ -54,7 +54,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('admin.menu.list')}}" class="nav-link">
+            <a href="{{route('admin.product.list')}}" class="nav-link">
               <i class="nav-icon fab fa-product-hunt"></i>
               <p>
                 Products

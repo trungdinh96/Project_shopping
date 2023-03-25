@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MenuController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,24 @@ Route::prefix('admin')->group(function () {
         Route::get('/delete/{id}', [MenuController::class, 'delete'])
             ->name('admin.menu.delete');
     });
+    Route::prefix('product')->group(function () {
+
+        Route::get('/', [ProductController::class, 'listProducts'])
+            ->name('admin.product.list');
+
+        Route::get('/create', [ProductController::class, 'createProduct'])
+            ->name('admin.product.create');
+
+        Route::post('/store', [ProductController::class, 'store'])
+            ->name('admin.product.store');
+        // Route::get('/edit/{id}', [MenuController::class, 'edit'])
+        //     ->name('admin.menu.edit');
+        // Route::post('/update/{id}', [MenuController::class, 'update'])
+        //     ->name('admin.menu.update');
+        // Route::get('/delete/{id}', [MenuController::class, 'delete'])
+        //     ->name('admin.menu.delete');
+    });
+
 });
 
 Route::get('/dashboard', function () {
