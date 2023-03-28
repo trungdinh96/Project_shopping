@@ -27,28 +27,34 @@
           </tr>
         </thead>
         <tbody>
-          {{-- @foreach ($menus as $menu)
+          @foreach ($products as $product)
               
           <tr>
-            <th scope="row">{{$menu->id}}</th>
-            <td>{{$menu->name}}</td>
+            <th scope="row">{{$product->id}}</th>
+            <td>{{$product->name}}</td>
+            <td>{{$product->price}}</td>
             <td>
-              <a href="{{route('admin.menu.edit',['id' => $menu->id])}}" class="btn btn-primary">Edit</a>
-              <a href="{{route('admin.menu.delete',['id' => $menu->id])}}" class="btn btn-danger">Delete</a>
+              <img src="{{$product->feature_image_path}}" alt="" width="100">
             </td>
+            <td>{{$product->category->name}}</td>
+            <td>
+              <a href="{{route('admin.product.edit',['id' => $product->id])}}" class="btn btn-primary">Edit</a>
+              <a href="{{route('admin.product.delete',['id' => $product->id])}}" class="btn btn-danger">Delete</a>
+            </td>
+            
            
           </tr>
-          @endforeach --}}
+          @endforeach
          
         </tbody>
       </table>
     </div>
-    {{-- <div class="col-md-12">
+    <div class="col-md-12">
 
       
-      {{ $menus->links() }}
+      {{ $products->links() }}
     </div>
-     --}}
+    
   </div>
   <!-- /.row -->
   <!-- Main row -->

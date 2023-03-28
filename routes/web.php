@@ -67,14 +67,22 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/store', [ProductController::class, 'store'])
             ->name('admin.product.store');
-        // Route::get('/edit/{id}', [MenuController::class, 'edit'])
-        //     ->name('admin.menu.edit');
-        // Route::post('/update/{id}', [MenuController::class, 'update'])
-        //     ->name('admin.menu.update');
-        // Route::get('/delete/{id}', [MenuController::class, 'delete'])
-        //     ->name('admin.menu.delete');
+        Route::get('/edit/{id}', [MenuController::class, 'edit'])
+            ->name('admin.product.edit');
+        Route::post('/update/{id}', [MenuController::class, 'update'])
+            ->name('admin.product.update');
+        Route::get('/delete/{id}', [MenuController::class, 'delete'])
+            ->name('admin.product.delete');
     });
 
+});
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::get('/dashboard', function () {

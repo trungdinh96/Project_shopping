@@ -18,7 +18,7 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
-   @include('Admin.layout.header')
+   {{-- @include('Admin.layout.header') --}}
 
     @include('Admin.layout.sidebar')
 
@@ -44,7 +44,7 @@
 
 
  
-  @include('Admin.layout.footer')
+  {{-- @include('Admin.layout.footer') --}}
 </div>
 
 <script src="{{BASE_URL}}AdminLTE/plugins/jquery/jquery.min.js"></script>

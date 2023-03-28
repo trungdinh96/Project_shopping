@@ -44,7 +44,7 @@
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="" method="post">
                             @csrf
-                            <h3 class="text-center text-info">Login</h3>
+                            <h3 class="text-center text-info">Login Admin</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
                                 <input type="text" name="email" id="username" class="form-control" value="{{old('email')}}">

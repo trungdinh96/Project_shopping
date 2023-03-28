@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <label>Product Image detail</label>
-                        <input type="file" multiple class="form-control-file" name="image_path">
+                        <input type="file" multiple class="form-control-file" name="image_path[]">
                         @error('name')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
