@@ -86,17 +86,35 @@ class ProductController extends Controller
             }
 
             //Insert tags to product
-            foreach ($request->tags as $tagItem) {
-                $tagInstance = $this->tag->firstOrCreate(['name' => $tagItem]);
-
-                $tagId[] = $tagInstance->id;
+            if(!empty($request->tags))
+        
+            {
+                foreach ($request->tags as $tagItem) {
+                    $tagInstance = $this->tag->firstOrCreate(['name' => $tagItem]);
+    
+                    $tagId[] = $tagInstance->id;
+                }
+                $product->tags()->attach($tagId);
             }
-            $product->tags()->attach($tagId);
+            
+            
             DB::commit();
             return redirect()->route('admin.product.list');
         } catch (\Exception $exeption) {
             DB::rollBack();
             Log::error('Message' . $exeption->getMessage() . 'Line: ' . $exeption->getLine());
         }
+    }
+
+    public function edit($id)
+    {
+        $product = $this->product->find($id);
+        $htmlOption = $this->getCategory($product->category_id);
+        return view('Admin.Products.edit', compact('htmlOption','product'));
+    }
+    
+    public function update(Request $request, $id)
+    {
+
     }
 }

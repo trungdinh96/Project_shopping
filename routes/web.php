@@ -67,11 +67,11 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/store', [ProductController::class, 'store'])
             ->name('admin.product.store');
-        Route::get('/edit/{id}', [MenuController::class, 'edit'])
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])
             ->name('admin.product.edit');
-        Route::post('/update/{id}', [MenuController::class, 'update'])
+        Route::post('/update/{id}', [ProductController::class, 'update'])
             ->name('admin.product.update');
-        Route::get('/delete/{id}', [MenuController::class, 'delete'])
+        Route::get('/delete/{id}', [ProductController::class, 'delete'])
             ->name('admin.product.delete');
     });
 

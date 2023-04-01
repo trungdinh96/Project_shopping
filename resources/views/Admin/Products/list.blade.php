@@ -32,11 +32,11 @@
           <tr>
             <th scope="row">{{$product->id}}</th>
             <td>{{$product->name}}</td>
-            <td>{{$product->price}}</td>
+            <td>{{number_format($product->price)}}</td>
             <td>
               <img src="{{$product->feature_image_path}}" alt="" width="100">
             </td>
-            <td>{{$product->category->name}}</td>
+            <td>{{$product->categorys->name}}</td>
             <td>
               <a href="{{route('admin.product.edit',['id' => $product->id])}}" class="btn btn-primary">Edit</a>
               <a href="{{route('admin.product.delete',['id' => $product->id])}}" class="btn btn-danger">Delete</a>

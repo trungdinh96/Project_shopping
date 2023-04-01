@@ -56,8 +56,7 @@ class MenuController extends Controller
     {
         $menu = $this->menu->find($id);
         $optionSelect = $this->menuRecusive->menuRecusiveEdit($menu->parent_id);
-        return view('Admin.Menus.edit', compact('menu','optionSelect'));
-       
+        return view('Admin.Menus.edit', compact('menu', 'optionSelect'));
     }
     public function update($id, Request $request)
     {
