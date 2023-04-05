@@ -23,7 +23,13 @@
     @include('Admin.layout.sidebar')
 
   <div class="content-wrapper">
-    
+    @if (\Session::has('success'))
+    <div class="alert alert-success">
+        <ul>
+            <li>{!! \Session::get('success') !!}</li>
+        </ul>
+    </div>
+@endif
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -52,6 +58,7 @@
 <script src="{{BASE_URL}}AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <script src="{{BASE_URL}}AdminLTE/dist/js/adminlte.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @yield('js')
 </body>
 </html>

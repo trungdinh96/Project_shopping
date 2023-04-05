@@ -13,6 +13,9 @@
                 <a href="{{ route('admin.category.create') }}" class="btn btn-success float-right m-2">Add</a>
             </div>
             <div class="col-md-12">
+                <a href="{{route('admin.category.deletesoft')}}" class="btn btn-success float-right m-2">Trash</a>
+                    </div>
+            <div class="col-md-12">
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
@@ -23,15 +26,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($categories as $key => $category)
                             <tr>
-                                <th scope="row">{{ $category->id }}</th>
+                                <th scope="row">{{ $key += 1 }}</th>
                                 <td>{{ $category->name }}</td>
                                 <td>
                                     <a href="{{ route('admin.category.edit', ['id' => $category->id]) }}"
                                         class="btn btn-primary">Edit</a>
                                     <a href="{{ route('admin.category.delete', ['id' => $category->id]) }}"
-                                        class="btn btn-danger">Delete</a>
+                                        class="btn btn-danger" OnClick='return confirm("Are you want to delete ?");'>Delete</a>
                                 </td>
 
                             </tr>
@@ -52,5 +55,5 @@
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
 
-
+   
 @endsection

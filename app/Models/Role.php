@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductImage extends Model
+class Role extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-    public function deleteProductImage()
+    public function permissions()
     {
-        return $this->belongsTo(Product::class)->onDelete('cascade');
+        return $this->belongsToMany(Permission::class,'permission_role','role_id','permission_id');
     }
+
+    
 }

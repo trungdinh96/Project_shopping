@@ -2,19 +2,14 @@
 <script src="https://cdn.tailwindcss.com"></script>
 @section('title'.' List product')
 
-@section('header_content','List Product')
+@section('header_content','Trash')
     
 
 @section('content')
 <div class="container-fluid">
   <!-- Small boxes (Stat box) -->
   <div class="row">
-    <div class="col-md-12">
-<a href="{{route('admin.product.create')}}" class="btn btn-success float-right m-2">Add</a>
-    </div>
-    <div class="col-md-12">
-      <a href="{{route('admin.product.deletesoft')}}" class="btn btn-success float-right m-2">Trash</a>
-          </div>
+    
     <div class="col-md-12">
       <table class="table">
         <thead class="thead-dark">
@@ -30,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          @foreach ($products as $key => $product)
+          @foreach ($productSoftDelete as $key => $product)
               
           <tr>
             <th scope="row">{{$key +=1}}</th>
@@ -40,10 +35,10 @@
               <img src="{{$product->feature_image_path}}" alt="" width="100">
             </td>
             <td>{{optional($product->categorys)->name}}</td>
-            <td>{{optional($product->user)->name}}</td>
+            <td>{{$product->user->name}}</td>
             <td>
-              <a href="{{route('admin.product.edit',['id' => $product->id])}}" class="btn btn-primary">Edit</a>
-              <a href="{{route('admin.product.delete',['id' => $product->id])}}" class="btn btn-danger" OnClick='return confirm("Are you want to delete ?");'>Delete</a>
+              <a href="{{route('admin.product.restore',['id' => $product->id])}}" class="btn btn-primary" OnClick='return confirm("Are you want to restore product ?");'>Resore</a>
+              <a href="{{route('admin.product.deleteTrash',['id' => $product->id])}}" class="btn btn-danger" OnClick='return confirm("Are you want to delete ?");'>Delete</a>
             </td>
             
            
@@ -53,11 +48,11 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-12">
+    {{-- <div class="col-md-12">
 
       
-      {{ $products->links() }}
-    </div>
+      {{ $productSoftDelete->links() }}
+    </div> --}}
     
   </div>
   <!-- /.row -->

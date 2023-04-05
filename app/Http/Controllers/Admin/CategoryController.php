@@ -54,8 +54,8 @@ class CategoryController extends Controller
                 'slug' => Str::slug($request->name)
             ]
         );
-
-        return redirect()->route('admin.category.list');
+        
+        return redirect()->route('admin.category.list')->with('success', 'Add category successfully');
     }
     public function getCategory($parentId)
     {
@@ -73,6 +73,16 @@ class CategoryController extends Controller
     }
     public function update($id, Request $request)
     {
+        $this->validate(
+            $request,
+            [
+                'name' => 'unique:categories,name'
+            ],
+            [
+               
+                'name.unique' => 'Tên danh mục đã tồn tại'
+            ]
+        );
         $this->category->find($id)->update(
             [
                 'name' => $request->name,
@@ -81,11 +91,33 @@ class CategoryController extends Controller
             ]
         );
 
-        return redirect()->route('admin.category.list');
+        return redirect()->route('admin.category.list')->with('success', 'Update category successfully');
     }
     public function delete($id)
     {
         $this->category->find($id)->delete();
         return redirect()->route('admin.category.list');
+    }
+    public function showSoftDelete()
+    {
+        $categorySoftDelete = $this->category->onlyTrashed()->get();
+
+        return view('Admin.Categories.listSoftDelete', compact('categorySoftDelete'));
+    }
+
+    public function restoreCategory($id)
+    {
+        $this->category->withTrashed()->find($id)->restore();
+        return redirect()->route('admin.category.list')->with('success', 'Restore successfully');
+    }
+
+    public function deleteTrash($id)
+    {
+        $deleteTrash = $this->category->withTrashed()->find($id);
+      
+        
+        $deleteTrash->forceDelete();
+
+        return redirect()->route('admin.category.deletesoft')->with('success', 'Delete category successfully');
     }
 }

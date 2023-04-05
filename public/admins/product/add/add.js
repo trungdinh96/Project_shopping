@@ -7,6 +7,9 @@ $(function() {
         placeholder: "Choose category",
         allowClear: true
     })
+    $(".role_select_choose").select2({
+      'placeholder':'Choose role'
+  })
 })
 
 var editor_config = {

@@ -27,7 +27,7 @@
                     @endif
                     <div class="form-group">
                         <label>Product name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Product name">
+                        <input type="text" class="form-control" name="name" placeholder="Product name" value="{{old('name')}}">
                         @error('name')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
@@ -35,7 +35,7 @@
 
                     <div class="form-group">
                         <label>Product price</label>
-                        <input type="text" class="form-control" name="price" placeholder="Product price">
+                        <input type="number" class="form-control" name="price" placeholder="Product price">
                         @error('name')
                             <span style="color: red">{{ $message }}</span>
                         @enderror
@@ -63,6 +63,9 @@
                             <option value="">Chọn danh muc</option>
                             {!! $htmlOption !!}
                         </select>
+                        @error('name')
+                            <span style="color: red">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group">

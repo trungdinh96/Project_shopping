@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,65 +19,122 @@ use App\Http\Controllers\Admin\ProductController;
 |
 */
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'loginAdmin']);
-    Route::post('/', [AdminController::class, 'postLoginAdmin'])->name('admin');
-    Route::get('/home', function () {
-        return view('Admin.home');
-    })->name('admin.home');
-    Route::prefix('category')->group(function () {
+Route::middleware('auth')
+    ->prefix('admin')->group(function () {
 
-        Route::get('/', [CategoryController::class, 'list'])
-            ->name('admin.category.list');
+        Route::get('/', function () {
+            return view('Admin.home');
+        })->name('admin.home');
+        Route::prefix('category')->group(function () {
 
-        Route::get('/create', [CategoryController::class, 'create'])
-            ->name('admin.category.create');
+            Route::get('/', [CategoryController::class, 'list'])
+                ->name('admin.category.list');
 
-        Route::post('/store', [CategoryController::class, 'store'])
-            ->name('admin.category.store');
-        Route::get('/edit/{id}', [CategoryController::class, 'edit'])
-            ->name('admin.category.edit');
-        Route::post('/update/{id}', [CategoryController::class, 'update'])
-            ->name('admin.category.update');
-        Route::get('/delete/{id}', [CategoryController::class, 'delete'])
-            ->name('admin.category.delete');
+            Route::get('/create', [CategoryController::class, 'create'])
+                ->name('admin.category.create');
+
+            Route::post('/store', [CategoryController::class, 'store'])
+                ->name('admin.category.store');
+            Route::get('/edit/{id}', [CategoryController::class, 'edit'])
+                ->name('admin.category.edit');
+            Route::post('/update/{id}', [CategoryController::class, 'update'])
+                ->name('admin.category.update');
+            Route::get('/delete/{id}', [CategoryController::class, 'delete'])
+                ->name('admin.category.delete');
+                Route::get('/listSoft', [CategoryController::class, 'showSoftDelete'])
+                ->name('admin.category.deletesoft');
+            Route::get('/restore/{id}', [CategoryController::class, 'restoreCategory'])
+                ->name('admin.category.restore');
+            Route::get('/deleteTrash/{id}', [CategoryController::class, 'deleteTrash'])
+                ->name('admin.category.deleteTrash');
+        });
+        Route::prefix('menu')->group(function () {
+
+            Route::get('/', [MenuController::class, 'list'])
+                ->name('admin.menu.list');
+
+            Route::get('/create', [MenuController::class, 'create'])
+                ->name('admin.menu.create');
+
+            Route::post('/store', [MenuController::class, 'store'])
+                ->name('admin.menu.store');
+            Route::get('/edit/{id}', [MenuController::class, 'edit'])
+                ->name('admin.menu.edit');
+            Route::post('/update/{id}', [MenuController::class, 'update'])
+                ->name('admin.menu.update');
+            Route::get('/delete/{id}', [MenuController::class, 'delete'])
+                ->name('admin.menu.delete');
+        });
+        Route::prefix('product')->group(function () {
+
+            Route::get('/', [ProductController::class, 'listProducts'])
+                ->name('admin.product.list');
+
+            Route::get('/create', [ProductController::class, 'createProduct'])
+                ->name('admin.product.create');
+
+            Route::post('/store', [ProductController::class, 'store'])
+                ->name('admin.product.store');
+            Route::get('/edit/{id}', [ProductController::class, 'edit'])
+                ->name('admin.product.edit');
+            Route::post('/update/{id}', [ProductController::class, 'update'])
+                ->name('admin.product.update');
+            Route::get('/delete/{id}', [ProductController::class, 'delete'])
+                ->name('admin.product.delete');
+            Route::get('/listSoft', [ProductController::class, 'showSoftDelete'])
+                ->name('admin.product.deletesoft');
+            Route::get('/restore/{id}', [ProductController::class, 'restoreProduct'])
+                ->name('admin.product.restore');
+            Route::get('/deleteTrash/{id}', [ProductController::class, 'deleteTrash'])
+                ->name('admin.product.deleteTrash');
+        });
+        Route::prefix('users')->group(function () {
+
+            Route::get('/', [UserController::class, 'list'])
+                ->name('admin.user.list');
+
+            Route::get('/create', [UserController::class, 'create'])
+                ->name('admin.user.create');
+
+            Route::post('/store', [UserController::class, 'store'])
+                ->name('admin.user.store');
+            Route::get('/edit/{id}', [UserController::class, 'edit'])
+                ->name('admin.user.edit');
+            Route::post('/update/{id}', [UserController::class, 'update'])
+                ->name('admin.user.update');
+            Route::get('/delete/{id}', [UserController::class, 'delete'])
+                ->name('admin.user.delete');
+            Route::get('/listSoft', [UserController::class, 'showSoftDelete'])
+                ->name('admin.user.deletesoft');
+            Route::get('/restore/{id}', [UserController::class, 'restoreUser'])
+                ->name('admin.user.restore');
+            Route::get('/deleteTrash/{id}', [UserController::class, 'deleteTrash'])
+                ->name('admin.user.deleteTrash');
+        });
+        Route::prefix('permission')->group(function () {
+
+            Route::get('/', [PermissionController::class, 'list'])
+                ->name('admin.permission.list');
+
+            Route::get('/create', [PermissionController::class, 'create'])
+                ->name('admin.permission.create');
+
+            Route::post('/store', [PermissionController::class, 'store'])
+                ->name('admin.permission.store');
+            Route::get('/edit/{id}', [PermissionController::class, 'edit'])
+                ->name('admin.permission.edit');
+            Route::post('/update/{id}', [PermissionController::class, 'update'])
+                ->name('admin.permission.update');
+            Route::get('/delete/{id}', [PermissionController::class, 'delete'])
+                ->name('admin.permission.delete');
+            // Route::get('/listSoft', [PermissionController::class, 'showSoftDelete'])
+            //     ->name('admin.permission.deletesoft');
+            // Route::get('/restore/{id}', [PermissionController::class, 'restoreUser'])
+            //     ->name('admin.permission.restore');
+            // Route::get('/deleteTrash/{id}', [PermissionController::class, 'deleteTrash'])
+            //     ->name('admin.permission.deleteTrash');
+        });
     });
-    Route::prefix('menu')->group(function () {
-
-        Route::get('/', [MenuController::class, 'list'])
-            ->name('admin.menu.list');
-
-        Route::get('/create', [MenuController::class, 'create'])
-            ->name('admin.menu.create');
-
-        Route::post('/store', [MenuController::class, 'store'])
-            ->name('admin.menu.store');
-        Route::get('/edit/{id}', [MenuController::class, 'edit'])
-            ->name('admin.menu.edit');
-        Route::post('/update/{id}', [MenuController::class, 'update'])
-            ->name('admin.menu.update');
-        Route::get('/delete/{id}', [MenuController::class, 'delete'])
-            ->name('admin.menu.delete');
-    });
-    Route::prefix('product')->group(function () {
-
-        Route::get('/', [ProductController::class, 'listProducts'])
-            ->name('admin.product.list');
-
-        Route::get('/create', [ProductController::class, 'createProduct'])
-            ->name('admin.product.create');
-
-        Route::post('/store', [ProductController::class, 'store'])
-            ->name('admin.product.store');
-        Route::get('/edit/{id}', [ProductController::class, 'edit'])
-            ->name('admin.product.edit');
-        Route::post('/update/{id}', [ProductController::class, 'update'])
-            ->name('admin.product.update');
-        Route::get('/delete/{id}', [ProductController::class, 'delete'])
-            ->name('admin.product.delete');
-    });
-
-});
 Route::get('/', function () {
     return view('welcome');
 });

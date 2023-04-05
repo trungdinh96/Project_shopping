@@ -13,7 +13,7 @@
           <img src="{{BASE_URL}}AdminLTE/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Trung Dinh</a>
+          <a href="#" class="d-block">{{auth()->user()->name}}</a>
         </div>
       </div>
 
@@ -58,6 +58,24 @@
               <i class="nav-icon fab fa-product-hunt"></i>
               <p>
                 Products
+                
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.user.list')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Users
+                
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.permission.list')}}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Permission
                 
               </p>
             </a>
