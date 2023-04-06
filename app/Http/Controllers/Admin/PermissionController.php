@@ -59,7 +59,7 @@ class PermissionController extends Controller
             'display_name' => $request->display_name
         ]);
         $role->permissions()->sync($request->permission_id);
-        return redirect()->route('admin.permission.list');
+        return redirect()->route('admin.permission.list')->with('success', 'Update successfully');
     }
 
 }

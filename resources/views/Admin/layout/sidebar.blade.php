@@ -35,6 +35,8 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
          
+         
+          @can('category-list')
           <li class="nav-item">
             <a href="{{route('admin.category.list')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -44,6 +46,9 @@
               </p>
             </a>
           </li>
+          @endcan
+
+          @can('menu-list')
           <li class="nav-item">
             <a href="{{route('admin.menu.list')}}" class="nav-link">
               <i class="nav-icon fas fa-bars"></i>
@@ -53,6 +58,9 @@
               </p>
             </a>
           </li>
+          @endcan
+         
+          @can('product-list')
           <li class="nav-item">
             <a href="{{route('admin.product.list')}}" class="nav-link">
               <i class="nav-icon fab fa-product-hunt"></i>
@@ -62,6 +70,9 @@
               </p>
             </a>
           </li>
+          @endcan
+         
+          @can('user-list')
           <li class="nav-item">
             <a href="{{route('admin.user.list')}}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -71,6 +82,9 @@
               </p>
             </a>
           </li>
+          @endcan
+          
+          @can('roles-list')
           <li class="nav-item">
             <a href="{{route('admin.permission.list')}}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -80,6 +94,8 @@
               </p>
             </a>
           </li>
+          @endcan
+         
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
