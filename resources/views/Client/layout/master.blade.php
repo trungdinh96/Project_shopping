@@ -13,6 +13,8 @@
     <link href="{{BASE_URL}}Clients/css/animate.css" rel="stylesheet">
 	<link href="{{BASE_URL}}Clients/css/main.css" rel="stylesheet">
 	<link href="{{BASE_URL}}Clients/css/responsive.css" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"> --}}
+    @yield('css')
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>

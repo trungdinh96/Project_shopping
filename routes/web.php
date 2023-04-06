@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\PermissionController;
 |
 */
 
-Route::middleware('auth')
+Route::middleware('auth','can:is-admin')
     ->prefix('admin')->group(function () {
 
         Route::get('/', function () {
@@ -92,19 +92,19 @@ Route::middleware('auth')
         Route::prefix('users')->group(function () {
 
             Route::get('/', [UserController::class, 'list'])
-                ->name('admin.user.list');
+                ->name('admin.user.list')->middleware('can:user-list');
 
             Route::get('/create', [UserController::class, 'create'])
-                ->name('admin.user.create');
+                ->name('admin.user.create')->middleware('can:user-create');
 
             Route::post('/store', [UserController::class, 'store'])
                 ->name('admin.user.store');
             Route::get('/edit/{id}', [UserController::class, 'edit'])
-                ->name('admin.user.edit');
+                ->name('admin.user.edit')->middleware('can:user-edit');
             Route::post('/update/{id}', [UserController::class, 'update'])
                 ->name('admin.user.update');
             Route::get('/delete/{id}', [UserController::class, 'delete'])
-                ->name('admin.user.delete');
+                ->name('admin.user.delete')->middleware('can:user-delete');
             Route::get('/listSoft', [UserController::class, 'showSoftDelete'])
                 ->name('admin.user.deletesoft');
             Route::get('/restore/{id}', [UserController::class, 'restoreUser'])
@@ -115,19 +115,19 @@ Route::middleware('auth')
         Route::prefix('permission')->group(function () {
 
             Route::get('/', [PermissionController::class, 'list'])
-                ->name('admin.permission.list');
+                ->name('admin.permission.list')->middleware('can:permission-list');
 
             Route::get('/create', [PermissionController::class, 'create'])
-                ->name('admin.permission.create');
+                ->name('admin.permission.create')->middleware('can:permission-create');
 
             Route::post('/store', [PermissionController::class, 'store'])
                 ->name('admin.permission.store');
             Route::get('/edit/{id}', [PermissionController::class, 'edit'])
-                ->name('admin.permission.edit');
+                ->name('admin.permission.edit')->middleware('can:permission-edit');
             Route::post('/update/{id}', [PermissionController::class, 'update'])
                 ->name('admin.permission.update');
             Route::get('/delete/{id}', [PermissionController::class, 'delete'])
-                ->name('admin.permission.delete');
+                ->name('admin.permission.delete')->middleware('can:permission-delete');
             // Route::get('/listSoft', [PermissionController::class, 'showSoftDelete'])
             //     ->name('admin.permission.deletesoft');
             // Route::get('/restore/{id}', [PermissionController::class, 'restoreUser'])
@@ -136,18 +136,20 @@ Route::middleware('auth')
             //     ->name('admin.permission.deleteTrash');
         });
     });
-// Route::get('/', function () {
-//     return view('Client.layout.master');
-// });
-Route::get('/',[HomeController::class, 'index'])->name('client.index');
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+Route::prefix('/')->group(function(){
+    Route::get('/',[HomeController::class, 'index'])->name('client.index');
+    Route::get('/logout',[AdminController::class, 'logout'])->name('logout');
 });
+require __DIR__ . '/auth.php';
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__ . '/auth.php';
+

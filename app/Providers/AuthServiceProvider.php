@@ -77,5 +77,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->checkPermission('edit_role');
          });
 
+         Gate::define('is-admin', function (User $user) {
+            return $user->checkAdmin(1||2);
+         });
+
     }
 }

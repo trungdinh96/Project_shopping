@@ -30,4 +30,10 @@ class AdminController extends Controller
             return redirect()->route('admin.home');
         }
     }
+    public function logout()
+    {
+        auth()->logout();
+        return redirect()->route('client.index');
+    }
+
 }

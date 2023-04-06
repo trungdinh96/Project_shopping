@@ -95,7 +95,15 @@
             </a>
           </li>
           @endcan
-         
+          <li class="nav-item">
+            <a href="{{route('logout')}}" class="nav-link">
+              <i class="nav-icon fa fa-sign-out"></i>
+              <p>
+                Log out
+                
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
