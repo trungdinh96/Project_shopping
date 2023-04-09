@@ -1,9 +1,11 @@
 @extends('Admin.layout.master')
-<script src="https://cdn.tailwindcss.com"></script>
+
 @section('title' . 'List Category')
 
 @section('header_content', 'List Category')
-
+@section('css')
+<script src="https://cdn.tailwindcss.com"></script>
+@endsection
 
 @section('content')
     <div class="container-fluid">

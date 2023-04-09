@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Auth\LoginRequest;
 
@@ -33,12 +34,13 @@ class AuthenticatedSessionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
    
-    public function store(LoginRequest $request )
+    public function store(LoginRequest $request, User $user )
     {
+        session()->flush();
         $request->authenticate();
 
         $request->session()->regenerate();
-        if(Auth::user()->roles->id=1||Auth::user()->roles->id=2){
+        if(Gate::allows('is-admin', $user)){
             return redirect()->intended(RouteServiceProvider::ADMIN);
         }
         return redirect()->intended(RouteServiceProvider::HOME);
@@ -55,7 +57,7 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
+        
         $request->session()->regenerateToken();
 
         return redirect('/');

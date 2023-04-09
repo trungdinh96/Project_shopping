@@ -39,18 +39,20 @@
                         <ul class="nav navbar-nav">
                             
                             
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="{{route('client.checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a>
+                               
+                            </li>
                             
                             @if (Auth::check())
                             <li class="dropdown"><a href="#"><i class="fa fa-user"></i> {{Auth::user()->name}}</a>
                                 <ul role="menu" class="sub-menu">
                                    
                                     <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li> 
-                                    <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                    <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                     @can('is-admin')
                                         
-                                    <li><a href="checkout.html"><i class="fa fa-users"></i> Quản trị Admin</a></li> 
+                                    <li><a href="{{route('admin.home')}}"><i class="fa fa-users"></i> Quản trị Admin</a></li> 
                                     @endcan
                                     <li><a href="{{route('logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li> 
                                 </ul>
@@ -80,14 +82,12 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html" class="active">Home</a></li>
+                            <li><a href="/" class="active">Home</a></li>
                             <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li> 
-                                    <li><a href="checkout.html">Checkout</a></li> 
-                                    <li><a href="cart.html">Cart</a></li> 
-                                    <li><a href="login.html">Login</a></li> 
+                                    <li><a href="{{route('client.listProducts')}}">Products</a></li>
+                                 
+                                   
                                 </ul>
                             </li> 
                             <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -110,3 +110,4 @@
         </div>
     </div><!--/header-bottom-->
 </header><!--/header-->
+

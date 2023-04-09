@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Client\ClientProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,19 +117,19 @@ Route::middleware('auth','can:is-admin')
         Route::prefix('permission')->group(function () {
 
             Route::get('/', [PermissionController::class, 'list'])
-                ->name('admin.permission.list')->middleware('can:permission-list');
+                ->name('admin.permission.list')->middleware('can:roles-list');
 
             Route::get('/create', [PermissionController::class, 'create'])
-                ->name('admin.permission.create')->middleware('can:permission-create');
+                ->name('admin.permission.create')->middleware('can:roles-create');
 
             Route::post('/store', [PermissionController::class, 'store'])
                 ->name('admin.permission.store');
             Route::get('/edit/{id}', [PermissionController::class, 'edit'])
-                ->name('admin.permission.edit')->middleware('can:permission-edit');
+                ->name('admin.permission.edit')->middleware('can:roles-edit');
             Route::post('/update/{id}', [PermissionController::class, 'update'])
                 ->name('admin.permission.update');
             Route::get('/delete/{id}', [PermissionController::class, 'delete'])
-                ->name('admin.permission.delete')->middleware('can:permission-delete');
+                ->name('admin.permission.delete')->middleware('can:roles-delete');
             // Route::get('/listSoft', [PermissionController::class, 'showSoftDelete'])
             //     ->name('admin.permission.deletesoft');
             // Route::get('/restore/{id}', [PermissionController::class, 'restoreUser'])
@@ -140,6 +142,14 @@ Route::middleware('auth','can:is-admin')
 Route::prefix('/')->group(function(){
     Route::get('/',[HomeController::class, 'index'])->name('client.index');
     Route::get('/logout',[AdminController::class, 'logout'])->name('logout');
+    Route::get('/products',[ClientProductController::class, 'listProducts'])->name('client.listProducts');
+    Route::get('/productdetail/{id}',[ClientProductController::class, 'productDetail'])->name('client.productdetail');
+    Route::get('/productcate/{slug}/{id}',[ClientProductController::class, 'productCategory'])->name('client.productcate');
+    Route::get('/cart',[ClientProductController::class, 'shoppingCart'])->name('client.productcart');
+    Route::get('/product/add-to-cart/{id}',[ClientProductController::class, 'addToCart'])->name('client.addToCart');
+    Route::patch('/product/update-cart',[ClientProductController::class, 'update'])->name('update_cart');
+    Route::delete('/product/remove-from-cart',[ClientProductController::class, 'remove'])->name('remove_from_cart');
+    Route::get('/checkout',[ClientProductController::class, 'checkOut'])->name('client.checkout');
 });
 require __DIR__ . '/auth.php';
 // Route::middleware('auth')->group(function () {
@@ -148,8 +158,6 @@ require __DIR__ . '/auth.php';
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//  
 
 

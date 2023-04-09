@@ -1,10 +1,12 @@
 @extends('Admin.layout.master')
-<script src="https://cdn.tailwindcss.com"></script>
+
 @section('title' . ' List product')
 
 @section('header_content', 'List Product')
 
-
+@section('css')
+<script src="https://cdn.tailwindcss.com"></script>
+@endsection
 @section('content')
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->

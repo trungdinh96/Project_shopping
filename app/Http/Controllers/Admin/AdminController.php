@@ -32,6 +32,7 @@ class AdminController extends Controller
     }
     public function logout()
     {
+        session()->flush();
         auth()->logout();
         return redirect()->route('client.index');
     }
