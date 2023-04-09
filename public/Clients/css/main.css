@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background:;
+  background:#fff;
   position: relative;
   font-weight:400px;
 }
@@ -1624,18 +1624,18 @@ h2.title {
 
 #cart_items .cart_info .cart_price p {
   color:#696763;
-  font-size: 18px
+  
 }
 
 
 #cart_items .cart_info .cart_total_price {
   color: #FE980F;
-  font-size: 24px;
+  
 }
 
 .cart_product {
   display: block;
-  margin: 15px -70px 10px 25px;
+  
 }
 
 .cart_quantity_button a {
@@ -1654,7 +1654,7 @@ h2.title {
 .cart_quantity_input {
   color: #696763;
   float: left;
-  font-size: 16px;
+  
   text-align: center;
   font-family: 'Roboto',sans-serif;
   
@@ -1903,7 +1903,7 @@ h2.title {
 
 .form-two, .form-one {
   float: left;
-  width: 47%
+  width: 100%;
 }
 
 
@@ -1946,7 +1946,7 @@ h2.title {
 
 .review-payment h2 {
   color: #696763;
-  font-size: 20px;
+ 
   font-weight: 300;
   margin-top: 45px;
   margin-bottom: 20px
@@ -1959,7 +1959,7 @@ h2.title {
 
 .payment-options span label {
   color: #696763;
-  font-size: 14px;
+  
   font-weight: 300;
   margin-right: 30px;
 }
@@ -1980,7 +1980,7 @@ h2.title {
 .table.table-condensed.total-result span {
   color: #FE980F;
   font-weight: 700;
-  font-size: 16px
+  
 }
 
 #cart_items .cart_info 
