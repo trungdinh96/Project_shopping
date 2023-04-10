@@ -50,7 +50,7 @@
                             <p>Web ID: {{$products->id}}</p>
                             <img src="images/product-details/rating.png" alt="" />
                             <span>
-                                <span>{{number_format($products->price)}}</span>
+                                <span>{{number_format($products->price)}} VND</span>
                                 
                                 <button type="button" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
@@ -83,8 +83,9 @@
                                         <div class="single-products">
                                             <div class="productinfo text-center">
                                                 <img src="{{$productCategory->feature_image_path}}" alt="" />
-                                                <h2>{{number_format($productCategory->price)}}</h2>
+                                                <h2>{{number_format($productCategory->price)}} VND</h2>
                                                 <p>{{$productCategory->name}}</p>
+                                                
                                                 <button type="button" class="btn btn-default add-to-cart"><a href="{{route('client.addToCart',['id'=>$productCategory->id])}}"><i class="fa fa-shopping-cart"></i>Add to cart</a></button>
                                             </div>
                                         </div>

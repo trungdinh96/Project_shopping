@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Customer;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -12,10 +15,16 @@ class ClientProductController extends Controller
 {
     private $category;
     private $product;
-    public function __construct(Category $category, Product $product)
+    private $customer;
+    private $orderProduct;
+    private $order;
+    public function __construct(Category $category, Product $product, Customer $customer, OrderProduct $orderProduct, Order $order)
     {
         $this->category = $category;
         $this->product = $product;
+        $this->customer = $customer;
+        $this->orderProduct = $orderProduct;
+        $this->order = $order;
     }
     public function listProducts()
     {
@@ -96,5 +105,47 @@ class ClientProductController extends Controller
     public function checkOut()
     {
         return view('Client.Products.checkout');
+    }
+
+    public function order(Request $request)
+    {
+        $customer = 
+        [
+            'email'=>$request->email,
+            'name'=>$request->name,
+            'number_phone'=>$request->phone_number,
+            'address'=>$request->address
+        ];
+        
+        $customers=$this->customer->create($customer);
+        if($order = $customers->orders()->create(
+            [
+                'user_id'=>Auth::id()
+            ]
+        )){
+            $cart = session()->get('cart');
+           
+            foreach($cart as $cart['id'] => $item)
+            {
+                $this->orderProduct->create([
+                    'order_id'=>$order->id,
+                    'product_id'=>$cart['id'],
+                    'quantity'=>$item['quantity'],
+                    
+                ]);
+            }
+            session()->forget('cart');
+            
+        }
+        return redirect()->back()->with('success', 'Order successfully!');
+
+    }
+
+    public function listOrder()
+    {
+        $orders = $this->order->all();
+        $orderDetails =$this->orderProduct->all();
+        
+        return view('Client.Products.order',compact('orders'));
     }
 }

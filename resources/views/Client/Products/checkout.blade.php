@@ -3,6 +3,11 @@
 @section('content')
     <section id="cart_items">
         <div class="container">
+            @if(session('success'))
+            <div class="alert alert-success">
+              {{ session('success') }}
+            </div> 
+            @endif
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
@@ -33,14 +38,14 @@
                     <div class=" col-md-4 bill-to">
                         <p>Bill To</p>
                         <div class="form-one">
-                            <form>
-                                
-                                <input type="text" placeholder="Email*">
-                                
-                                <input type="text" placeholder="Full Name *">
-                                
-                                <input type="text" placeholder="Mobile Phone">
-                                <input type="text" placeholder="Address">
+                            <form action="{{route('client.order')}}" method="POST">
+                                @csrf
+                                <input type="text" placeholder="Email*" name="email">
+                                <input type="text" placeholder="Full Name *" name="name">
+                                <input type="text" placeholder="Mobile Phone" name="phone_number">
+                                <input type="text" placeholder="Address" name="address">
+
+                                <button type="submit" class="btn btn-warning">Order</button>
                             </form>
                         </div>
 
@@ -63,36 +68,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  
-                                    
+
+
 
                                     @php $total = 0 @endphp
-                                    @if(session('cart'))
-                                        @foreach(session('cart') as $id => $details)
-                                        {{-- @if (Auth::user()->id == $details['auth']) --}}
-                                            
+                                    @if (session('cart'))
+                                        @foreach (session('cart') as $id => $details)
+                                            {{-- @if (Auth::user()->id == $details['auth']) --}}
+
                                             @php $total += $details['price'] * $details['quantity'] @endphp
                                             <tr data-id="{{ $id }}">
                                                 <td class="cart_product">
-                                                    <a href=""><img src="{{ $details['image'] }}" alt="" width="100"></a>
+                                                    <a href=""><img src="{{ $details['image'] }}" alt=""
+                                                            width="100"></a>
                                                 </td>
                                                 <td class="cart_description">
                                                     <h4>{{ $details['name'] }}</h4>
-                                                
+
                                                 </td>
                                                 <td class="cart_price">
                                                     <p>{{ number_format($details['price']) }} VND</p>
                                                 </td>
                                                 <td class="cart_quantity">
                                                     <div class="cart_quantity_button">
-                                                        
+
                                                         <input class="cart_quantity_input" type="text" name="quantity"
-                                                            value="{{ $details['quantity'] }}"  disabled>
-                                                        
+                                                            value="{{ $details['quantity'] }}" disabled>
+
                                                     </div>
                                                 </td>
                                                 <td class="cart_total">
-                                                    <p class="cart_total_price">{{number_format($details['price'] * $details['quantity'])  }} VND</p>
+                                                    <p class="cart_total_price">
+                                                        {{ number_format($details['price'] * $details['quantity']) }} VND
+                                                    </p>
                                                 </td>
                                                 <td class="cart_remove">
                                                     <i class="fa fa-times"></i>
@@ -100,23 +108,23 @@
                                             </tr>
                                         @endforeach
                                     @endif
-                                   
+
                                     <tr>
                                         <td colspan="4">&nbsp;</td>
                                         <td colspan="2">
                                             <table class="table table-condensed total-result">
-                                                
-                                               
+
+
                                                 <tr>
                                                     <td>Total</td>
-                                                    <td><span>{{number_format($total)}} VND</span></td>
+                                                    <td><span>{{ number_format($total) }} VND</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                           
+
                         </div>
                         <div class="payment-options">
                             <span>
@@ -132,13 +140,13 @@
                     </div>
                 </div>
             </div>
-           
+
             <div class="review-payment">
                 <h2>Review & Payment</h2>
             </div>
 
 
-           
+
         </div>
     </section>
     <!--/#cart_items-->
@@ -146,24 +154,24 @@
 
 @section('js')
     <script>
-        $(".cart_remove").click(function (e) {
-        e.preventDefault();
-   
-        var ele = $(this);
-   
-        if(confirm("Do you really want to remove?")) {
-            $.ajax({
-                url: '{{ route('remove_from_cart') }}',
-                method: "DELETE",
-                data: {
-                    _token: '{{ csrf_token() }}', 
-                    id: ele.parents("tr").attr("data-id")
-                },
-                success: function (response) {
-                    window.location.reload();
-                }
-            });
-        }
-    });
+        $(".cart_remove").click(function(e) {
+            e.preventDefault();
+
+            var ele = $(this);
+
+            if (confirm("Do you really want to remove?")) {
+                $.ajax({
+                    url: '{{ route('remove_from_cart') }}',
+                    method: "DELETE",
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        id: ele.parents("tr").attr("data-id")
+                    },
+                    success: function(response) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
     </script>
 @endsection

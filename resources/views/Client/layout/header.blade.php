@@ -38,18 +38,20 @@
                     <div class="mainmenu pull-right">
                         <ul class="nav navbar-nav">
                             
-                            
+                           
                             <li><a href="{{route('client.checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a>
-                               
                             </li>
-                            
+                           
                             @if (Auth::check())
+                             
+                           
                             <li class="dropdown"><a href="#"><i class="fa fa-user"></i> {{Auth::user()->name}}</a>
                                 <ul role="menu" class="sub-menu">
                                    
-                                    <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li> 
+                                    <li><a href="{{route('client.checkout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li> 
                                     <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                    <li><a href="/listOrder"><i class="fa fa-book"></i> Order</a>
                                     @can('is-admin')
                                         
                                     <li><a href="{{route('admin.home')}}"><i class="fa fa-users"></i> Quản trị Admin</a></li> 

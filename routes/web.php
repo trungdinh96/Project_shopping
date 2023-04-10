@@ -150,6 +150,9 @@ Route::prefix('/')->group(function(){
     Route::patch('/product/update-cart',[ClientProductController::class, 'update'])->name('update_cart');
     Route::delete('/product/remove-from-cart',[ClientProductController::class, 'remove'])->name('remove_from_cart');
     Route::get('/checkout',[ClientProductController::class, 'checkOut'])->name('client.checkout');
+    Route::post('/addOrder',[ClientProductController::class, 'order'])->name('client.order');
+    Route::get('/listOrder',[ClientProductController::class, 'listOrder'])->name('client.listOrder');
+
 });
 require __DIR__ . '/auth.php';
 // Route::middleware('auth')->group(function () {

@@ -6,6 +6,6 @@
     
 
 @section('content')
-    <p>Trang chu</p>
+    <p><a href="/">Trang chu</a></p>
 @endsection
     
