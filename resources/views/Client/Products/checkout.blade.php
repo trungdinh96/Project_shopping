@@ -3,10 +3,10 @@
 @section('content')
     <section id="cart_items">
         <div class="container">
-            @if(session('success'))
-            <div class="alert alert-success">
-              {{ session('success') }}
-            </div> 
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
             @endif
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
@@ -38,14 +38,27 @@
                     <div class=" col-md-4 bill-to">
                         <p>Bill To</p>
                         <div class="form-one">
-                            <form action="{{route('client.order')}}" method="POST">
+                            <form action="{{ route('client.order') }}" method="POST">
                                 @csrf
                                 <input type="text" placeholder="Email*" name="email">
+                                @error('email')
+                                    <span style="color: red">{{ $message }}</span>
+                                @enderror
                                 <input type="text" placeholder="Full Name *" name="name">
+                                @error('name')
+                                    <span style="color: red">{{ $message }}</span>
+                                @enderror
                                 <input type="text" placeholder="Mobile Phone" name="phone_number">
+                                @error('phone_number')
+                                    <span style="color: red">{{ $message }}</span>
+                                @enderror
                                 <input type="text" placeholder="Address" name="address">
-
-                                <button type="submit" class="btn btn-warning">Order</button>
+                                @error('address')
+                                    <span style="color: red">{{ $message }}</span>
+                                @enderror
+                                 <br/>
+                                <button type="submit" class="btn btn-warning">Thanh toán khi nhận hàng</button>
+                                <button type="button" class="btn btn-warning">Thanh toán qua MOMO</button>
                             </form>
                         </div>
 
@@ -126,7 +139,7 @@
                             </table>
 
                         </div>
-                        <div class="payment-options">
+                        {{-- <div class="payment-options">
                             <span>
                                 <label><input type="checkbox"> Direct Bank Transfer</label>
                             </span>
@@ -136,7 +149,7 @@
                             <span>
                                 <label><input type="checkbox"> Paypal</label>
                             </span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

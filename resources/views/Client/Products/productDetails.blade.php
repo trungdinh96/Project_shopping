@@ -53,8 +53,7 @@
                                 <span>{{number_format($products->price)}} VND</span>
                                 
                                 <button type="button" class="btn btn-fefault cart">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    Add to cart
+                                    <a href="{{route('client.addToCart',['id'=>$products->id])}}"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                 </button>
                             </span>
                             <p><b>Availability:</b> In Stock</p>

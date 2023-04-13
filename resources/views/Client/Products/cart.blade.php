@@ -65,15 +65,13 @@
                     <div class="col-lg-4 offset-lg-8">
                         <div class="proceed-checkout">
                             
-                            @if (Auth::check())
+                          
                             <ul>
                                 <li class="subtotal">Subtotal <span>{{number_format($total)}} VND</span></li>
                                 <li class="cart-total">Total <span>{{number_format($total)}} VND</span></li>
                             </ul>
                             <a href="{{route('client.checkout')}}" class="proceed-btn">PROCEED TO CHECK OUT</a>
-                            @else
-                            <h5 style="color: red">Vui lòng đăng nhập để đặt hàng ! <a href="/login"><b>Đăng nhập</b></a></h5>
-                            @endif
+                           
                         </div>
                     </div>
                 </div>

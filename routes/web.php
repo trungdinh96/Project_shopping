@@ -152,6 +152,9 @@ Route::prefix('/')->group(function(){
     Route::get('/checkout',[ClientProductController::class, 'checkOut'])->name('client.checkout');
     Route::post('/addOrder',[ClientProductController::class, 'order'])->name('client.order');
     Route::get('/listOrder',[ClientProductController::class, 'listOrder'])->name('client.listOrder');
+    Route::get('/mail', function(){
+        return view('Client.Products.mail');
+    });
 
 });
 require __DIR__ . '/auth.php';
