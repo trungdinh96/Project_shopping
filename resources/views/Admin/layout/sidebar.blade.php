@@ -94,6 +94,19 @@
               </p>
             </a>
           </li>
+
+          @endcan
+          @can('order-list')
+            
+          <li class="nav-item">
+            <a href="{{route('admin.order.list')}}" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Order
+                
+              </p>
+            </a>
+          </li>
           @endcan
           <li class="nav-item">
             <a href="{{route('logout')}}" class="nav-link">

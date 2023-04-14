@@ -105,7 +105,12 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                        <form action="{{route('client.searchProduct')}}" method="get">
+                            @csrf
+                            <input type="text" placeholder="Search" name="search_tag" value="{{old('search_tag')}}">
+                            <button type="submit" class="btn btn-warning">Search</button>
+                        </form>
+                        
                     </div>
                 </div>
             </div>

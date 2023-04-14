@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Admin\ProductController;
@@ -22,7 +23,7 @@ use App\Http\Controllers\Client\ClientProductController;
 |
 */
 
-Route::middleware('auth','can:is-admin')
+Route::middleware('auth', 'can:is-admin')
     ->prefix('admin')->group(function () {
 
         Route::get('/', function () {
@@ -44,7 +45,7 @@ Route::middleware('auth','can:is-admin')
                 ->name('admin.category.update');
             Route::get('/delete/{id}', [CategoryController::class, 'delete'])
                 ->name('admin.category.delete')->middleware('can:category-edit');
-                Route::get('/listSoft', [CategoryController::class, 'showSoftDelete'])
+            Route::get('/listSoft', [CategoryController::class, 'showSoftDelete'])
                 ->name('admin.category.deletesoft');
             Route::get('/restore/{id}', [CategoryController::class, 'restoreCategory'])
                 ->name('admin.category.restore');
@@ -137,25 +138,51 @@ Route::middleware('auth','can:is-admin')
             // Route::get('/deleteTrash/{id}', [PermissionController::class, 'deleteTrash'])
             //     ->name('admin.permission.deleteTrash');
         });
+        Route::prefix('order')->group(function () {
+
+            Route::get('/', [OrderController::class, 'list'])
+                ->name('admin.order.list')->middleware('can:order-list');
+
+            Route::get('/orderDetails/{id}', [OrderController::class, 'orderDetails'])
+                ->name('admin.order.detail');
+            Route::get('/updateStatus', [OrderController::class, 'updateStatus'])
+                ->name('admin.order.updateStatus')->middleware('can:update-order');
+            Route::get('/deleteOrder/{id}', [OrderController::class, 'delete'])
+                ->name('admin.order.delete')->middleware('can:delete_order');
+
+            // Route::post('/store', [PermissionController::class, 'store'])
+            //     ->name('admin.permission.store');
+            // Route::get('/edit/{id}', [PermissionController::class, 'edit'])
+            //     ->name('admin.permission.edit')->middleware('can:roles-edit');
+            // Route::post('/update/{id}', [PermissionController::class, 'update'])
+            //     ->name('admin.permission.update');
+            // Route::get('/delete/{id}', [PermissionController::class, 'delete'])
+            //     ->name('admin.permission.delete')->middleware('can:roles-delete');
+            // Route::get('/listSoft', [PermissionController::class, 'showSoftDelete'])
+            //     ->name('admin.permission.deletesoft');
+            // Route::get('/restore/{id}', [PermissionController::class, 'restoreUser'])
+            //     ->name('admin.permission.restore');
+            // Route::get('/deleteTrash/{id}', [PermissionController::class, 'deleteTrash'])
+            //     ->name('admin.permission.deleteTrash');
+        });
     });
 
-Route::prefix('/')->group(function(){
-    Route::get('/',[HomeController::class, 'index'])->name('client.index');
-    Route::get('/logout',[AdminController::class, 'logout'])->name('logout');
-    Route::get('/products',[ClientProductController::class, 'listProducts'])->name('client.listProducts');
-    Route::get('/productdetail/{id}',[ClientProductController::class, 'productDetail'])->name('client.productdetail');
-    Route::get('/productcate/{slug}/{id}',[ClientProductController::class, 'productCategory'])->name('client.productcate');
-    Route::get('/cart',[ClientProductController::class, 'shoppingCart'])->name('client.productcart');
-    Route::get('/product/add-to-cart/{id}',[ClientProductController::class, 'addToCart'])->name('client.addToCart');
-    Route::patch('/product/update-cart',[ClientProductController::class, 'update'])->name('update_cart');
-    Route::delete('/product/remove-from-cart',[ClientProductController::class, 'remove'])->name('remove_from_cart');
-    Route::get('/checkout',[ClientProductController::class, 'checkOut'])->name('client.checkout');
-    Route::post('/addOrder',[ClientProductController::class, 'order'])->name('client.order');
-    Route::get('/listOrder',[ClientProductController::class, 'listOrder'])->name('client.listOrder');
-    Route::get('/mail', function(){
-        return view('Client.Products.mail');
-    });
-
+Route::prefix('/')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('client.index');
+    Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+    Route::get('/products', [ClientProductController::class, 'listProducts'])->name('client.listProducts');
+    Route::get('/productdetail/{id}', [ClientProductController::class, 'productDetail'])->name('client.productdetail');
+    Route::get('/productcate/{slug}/{id}', [ClientProductController::class, 'productCategory'])->name('client.productcate');
+    Route::get('/cart', [ClientProductController::class, 'shoppingCart'])->name('client.productcart');
+    Route::get('/product/add-to-cart/{id}', [ClientProductController::class, 'addToCart'])->name('client.addToCart');
+    Route::patch('/product/update-cart', [ClientProductController::class, 'update'])->name('update_cart');
+    Route::delete('/product/remove-from-cart', [ClientProductController::class, 'remove'])->name('remove_from_cart');
+    Route::get('/checkout', [ClientProductController::class, 'checkOut'])->name('client.checkout');
+    Route::post('/addOrder', [ClientProductController::class, 'order'])->name('client.order');
+    Route::get('/listOrder', [ClientProductController::class, 'listOrder'])->name('client.listOrder');
+    Route::get('/deleteOrder/{id}', [ClientProductController::class, 'delete'])->name('client.delete');
+    Route::get('/search', [ClientProductController::class, 'searchProduct'])->name('client.searchProduct');
+    
 });
 require __DIR__ . '/auth.php';
 // Route::middleware('auth')->group(function () {
@@ -165,5 +192,3 @@ require __DIR__ . '/auth.php';
 // });
 
 //  
-
-

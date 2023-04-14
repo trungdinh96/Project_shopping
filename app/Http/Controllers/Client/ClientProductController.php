@@ -163,4 +163,26 @@ class ClientProductController extends Controller
 
         return view('Client.Products.order', compact('orders'));
     }
+
+    public function delete($id)
+    {
+       $deleteOrder= $this->order->find($id);
+       $deleteOrder->products()->detach();
+       $deleteOrder->delete();
+       
+        return back()->with('success', 'Delete Order successfully !');
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $categories = $this->category->where('parent_id', 0)->get();
+        $key_search = $request->search_tag;
+        $products = $this->product
+        ->join('product_tags', 'products.id', 'product_tags.product_id')
+        ->join('tags', 'product_tags.tag_id', 'tags.id')
+        ->where('tags.name', 'like', '%' .  $key_search . '%')
+        ->get();
+        
+        return view('Client.Products.list' , compact('products','categories'));
+    }
 }
